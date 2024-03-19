@@ -21,19 +21,27 @@ struct ContentView: View {
         .textFieldStyle(.roundedBorder)
         .focused($isTextFieldFocused)
     }
+    .onAppear {
+      self.isTextFieldFocused = true
+    }
     .toolbar {
       ToolbarItem(placement: .keyboard) {
-        Button {
-          self.isTextFieldFocused = false
-        } label: {
-          Image(systemName: "keyboard.chevron.compact.down")
-            .foregroundColor(.secondary)
-            .frame(height: 44)
-            .frame(maxWidth: .infinity)
-            .contentShape(Rectangle())
-        }
-        .buttonStyle(.plain)
+        _keyboardDismissButton()
       }
     }
+  }
+
+  @ViewBuilder
+  private func _keyboardDismissButton() -> some View {
+    Button {
+      self.isTextFieldFocused = false
+    } label: {
+      Image(systemName: "keyboard.chevron.compact.down")
+        .foregroundColor(.secondary)
+        .frame(height: 44)
+        .frame(maxWidth: .infinity)
+        .contentShape(Rectangle())
+    }
+    .buttonStyle(.plain)
   }
 }
